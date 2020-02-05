@@ -7,7 +7,7 @@ void UBullCowCartridge::BeginPlay() // When the game starts
     
     SetupGame();
 
-    PrintLine(TEXT("The HiddenWord is: %s."), *HiddenWord); // Debug Line
+    PrintLine(TEXT("The HiddenWord is: %s"), *HiddenWord); // Debug Line
 }
 
 void UBullCowCartridge::OnInput(const FString& Input) // When the player hits enter
