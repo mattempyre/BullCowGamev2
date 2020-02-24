@@ -1,5 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "BullCowCartridge.h"
+#include "HiddenWordList.h"
 
 void UBullCowCartridge::BeginPlay() // When the game starts
 {
@@ -7,7 +8,14 @@ void UBullCowCartridge::BeginPlay() // When the game starts
     
     SetupGame();
 
-    PrintLine(TEXT("The HiddenWord is: %s"), *HiddenWord); // Debug Line
+    PrintLine(TEXT("The number of possible words is %i."), Words.Num());
+    PrintLine(TEXT("The HiddenWord is: %s."), *HiddenWord); // Debug Line
+
+    for (int32 Index = 0; Index != 5; Index++)  
+    {
+        PrintLine(TEXT("%s"), *Words[Index]);
+    }
+    
 }
 
 void UBullCowCartridge::OnInput(const FString& Input) // When the player hits enter
@@ -43,6 +51,7 @@ void UBullCowCartridge::SetupGame()
 
     // const TCHAR HW[] = TEXT("cakes");
     // PrintLine(TEXT("Character 1 of the hidden word is: %c"), HW[0]);
+    IsIsogram(HiddenWord);
 }
 
 void UBullCowCartridge::EndGame()
@@ -96,13 +105,34 @@ void UBullCowCartridge::ProcessGuess(FString Guess)
     // PlayAgain or Quit
 }
 
-bool UBullCowCartridge::IsIsogram(FString Word)
+bool UBullCowCartridge::IsIsogram(FString Word) const
 {
+    for (int32 Index = 0; Index < Word.Len(); Index++)
+    {
+        for (int32 Comparison = Index + 1; Comparison < Word.Len(); Comparison++)
+        {
+            if (Word[Index] == Word[Comparison])
+            {
+                return false;
+            }            
+        }
+    }
+    
+    return true;
+    
+    // for (int32 Index = 0, Comparison = Index + 1; Comparison < Word.Len(); Comparison++)
+    // {
+    //     if (Word[Index] == Word[Comparison])
+    //     {
+    //         return false;
+    //     }
+        
+    // }
+    
     // For each letter
     // Start at Element [0]
     // Compare against the next letter.
     // Until we reach [Word.Len() -1]
     // if any letters are the same return false
 
-    return true;
 }
