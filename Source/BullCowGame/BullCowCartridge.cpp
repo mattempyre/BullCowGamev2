@@ -13,7 +13,12 @@ void UBullCowCartridge::BeginPlay() // When the game starts
 
     for (int32 Index = 0; Index != 5; Index++)  
     {
-        PrintLine(TEXT("%s"), *Words[Index]);
+        if (Words[Index].Len() >=4 && Words[Index].Len() <=8)
+        {
+           PrintLine(TEXT("%s"), *Words[Index]);
+        }
+        
+        
     }
     
 }
